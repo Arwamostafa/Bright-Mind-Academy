@@ -1,0 +1,12 @@
+<div class="chatComp" style="min-height: 100vh;">
+  <input type="text" name="msg" [(ngModel)]="message"  style="margin-left: 600px;">
+  <button class="btn btn-primary m-3" (click)="sendMesage()">Send</button>
+
+  <ul class="list-unstyled" style="width: 500px; margin: 0px auto">
+    <li *ngFor="let m of msg" [ngClass]="{'left-msg': m.isLeft, 'right-msg': !m.isLeft}">
+      {{ m.text }}
+    </li>
+  </ul>
+</div>
+
+

@@ -1,0 +1,68 @@
+<div class="_class">
+  <form [formGroup]="ClassForm" (ngSubmit)="addClass()">
+    <h1 style="text-align: center; color: #0066cc; margin: 10px;">Add Class</h1>
+
+    <div>
+        <label id="className">class Name:</label>
+        <input formControlName="className" placeholder="Class Name" />
+    </div>
+            <div *ngIf="className?.errors?.['required'] && className?.touched">
+              <p style="color: brown;">Name is required</p>
+            </div>
+            <div *ngIf="className?.errors?.['minlength'] && className?.touched">
+              <p style="color: brown;">Name must be at least 3 characters</p>
+            </div>
+
+    <button type="submit" style="width: 100%; background-color: #0066cc;" >Add class</button>
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>Class Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of classes">
+            <td>{{item.className}}</td>
+            <td class="actions">
+                <button (click)="UpdateClass(item.classID)">Update</button>
+                <button (click)="DeleteClass(item.classID)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<!-- track -->
+
+<div class="track">
+  <form [formGroup]="TrackForm" (ngSubmit)="addTrack()">
+    <h1 style="text-align: center; color: #0066cc; margin: 10px;">Add Track</h1>
+    <div>
+        <label id="trackName">Track Name:</label>
+        <input formControlName="trackName" placeholder="Track Name" />
+    </div>
+            <div *ngIf="trackName?.invalid && trackName?.touched">
+            <p style="color: brown;">Name is required and must be at least 3 characters</p>
+        </div>
+    <button type="submit" style="width: 100%; background-color: #0066cc;">Add Track</button>
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>Track Name</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let track of tracks">
+            <td>{{track.trackName}}</td>
+            <td class="actions">
+                <button (click)="UpdateTrack(track.trackID)">Update</button>
+                <button (click)="DeleteTrack(track.trackID)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>

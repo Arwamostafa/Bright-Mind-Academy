@@ -1,0 +1,135 @@
+<form [formGroup]="InstructorForm" (ngSubmit)="onSubmit()" class="w-100">
+  <h1 style="text-align: center; color: #0066cc; margin: 10px;">Add Instructor</h1>
+  <div>
+    <label for="firstName">First Name</label>
+    <input id="firstName" formControlName="firstName" />
+    <div *ngIf="InstructorForm.get('firstName')?.invalid && InstructorForm.get('firstName')?.touched">
+      <p style="color: brown;">First name is required and must be at least 3 characters</p>
+    </div>
+  </div>
+  <div>
+      <label for="lastName">Last Name</label>
+      <input id="lastName" formControlName="lastName" />
+      <div *ngIf="InstructorForm.get('lastName')?.invalid && InstructorForm.get('lastName')?.touched">
+          <p style="color: brown;">Lastt name is required and must be at least 3 characters</p>
+      </div>
+  </div>
+    <div>
+        <label for="email">Email</label>
+        <input type="email" id="email" formControlName="email" />
+        <div *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+            <div *ngIf="email?.errors?.['required']">
+                <p style="color: brown;">Email is required.</p>
+            </div>
+            <div *ngIf="email?.errors?.['email']">
+                <p style="color: brown;">Invalid email format</p>
+            </div>
+        </div>
+    </div>
+
+    <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" formControlName="password" />
+    </div>
+    <div *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+        <div *ngIf="password?.errors?.['required']">
+            <p style="color: brown;">Password is required.</p>
+        </div>
+        <div *ngIf="password?.errors?.['minlength']">
+            <p style="color: brown;">Password must be at least 6 characters long.</p>
+        </div>
+    </div>
+    <div>
+        <label for="address">Address</label>
+        <input id="address" formControlName="address" />
+        <div *ngIf="address?.invalid && address?.touched">
+            <p style="color: brown;">Address is required and must be at least 10 characters</p>
+        </div>
+    </div>
+    <div>
+        <label for="phoneNumber">Phone Number</label>
+        <input id="phoneNumber" formControlName="phoneNumber" />
+        <div *ngIf="phoneNumber?.invalid && phoneNumber?.touched">
+            <p style="color: brown;">Phone is required and must be a valid 10-digit number</p>
+        </div>
+    </div>
+    <div>
+        <label for="gender">Gender</label>
+        <select name="gender" id="gender" formControlName = gender>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            </select>
+    </div>
+
+    <div>
+       <div class="row ">
+        <div class="col-md-6">
+        <label for="image" class="mt-3" style="vertical-align: middle;">Image</label>
+
+        </div>
+
+    <div class="col-md-6">
+        <div class="me-auto">
+            <img *ngIf="oldImageUrl"
+                     [src]="oldImageUrl"
+                     alt="Instructor Image"
+                     style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;"
+                     (error)="onImageError($event)" >
+        </div>
+
+                <!-- <span *ngIf="!oldImageUrl" style="color: #999;">No Image</span> -->
+    </div>
+
+       </div>
+
+    <input type="file" id="image"
+           accept="image/*"
+           formControlName="image"
+           (change)="onImageFileChange($event)" />
+    <div *ngIf="imageget?.invalid && imageget?.touched&& imageget==null">
+      <p style="color:brown;">Image is required</p>
+    </div>
+    <div *ngIf="invalidimageType">
+      <p class="error">Only image files are allowed</p>
+    </div>
+  </div>
+
+
+    <button *ngIf="editId == null" type="submit" style="margin-top: 20px; width: 100%; background-color: #0066cc;">Add</button>
+    <button *ngIf="editId != null" type="submit" style="margin-top: 20px; width: 100%; background-color: #0066cc;">Update</button>
+</form>
+<table class="w-100 table">
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Address</th>
+            <th>Phone</th>
+            <th>Gender</th>
+            <!-- <th>Image</th> -->
+            <th style="text-align: center;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let instructor of instructors">
+            <td>{{ instructor.firstName }}</td>
+            <td>{{ instructor.lastName }}</td>
+            <td>{{ instructor.email }}</td>
+            <td>{{ instructor.address }}</td>
+            <td>{{ instructor.phoneNumber }}</td>
+            <td>{{instructor.gender}}</td>
+            <td><img *ngIf="instructor.ImageURL"
+                     [src]="instructor.ImageURL"
+                     alt="Instructor Image"
+                     style="width: 50px; height: 50px; object-fit: cover; border-radius: 5px;"
+                     (error)="onImageError($event)">
+                <span *ngIf="!instructor.ImageURL" style="color: #999;">No Image</span></td>
+            <!-- <td>{{ instructor.image }}</td> -->
+            <td class="actions" style="text-align: center;">
+                <button (click)="Update(instructor.id)">Update</button>
+                <button (click)="Delete(instructor.id)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

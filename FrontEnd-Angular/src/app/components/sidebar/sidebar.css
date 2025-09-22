@@ -1,0 +1,187 @@
+@media (max-width: 1024px) {
+  .sidebar {
+    width: 80vw;
+    max-width: 320px;
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .sidebar-fab-toggle {
+    display: flex;
+  }
+  .sidebar.open ~ .sidebar-fab-toggle {
+    display: none !important;
+  }
+}
+@media (min-width: 1025px) {
+  .sidebar {
+    width: 368px;
+    max-width: 368px;
+    transform: none !important;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    z-index: 999;
+    max-height: 95vh;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.10);
+  }
+  .sidebar-fab-toggle {
+    display: none !important;
+  }
+   .sidebar.open ~ .sidebar-fab-toggle {
+    display: none !important;
+  }
+}
+
+
+/* sidebar.component.css */
+.sidebar {
+    width: 368px;
+    background: white;
+    border-right: 1px solid #e5e7eb;
+    overflow-y: auto;
+    position: fixed;
+    left: 0;
+    top: 143px;
+    bottom: 0;
+    z-index: 999;
+    margin: 0;
+    padding: 0;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.10);
+    transition: transform 0.3s cubic-bezier(.4,0,.2,1);
+}
+
+/* Sidebar toggle button (floating, always visible on small/medium screens) */
+.sidebar-fab-toggle {
+  display: none;
+}
+@media (max-width: 1024px) {
+  .sidebar-fab-toggle {
+    display: flex;
+    position: fixed;
+    top: 24px;
+    left: 24px;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: #0066cc;
+    color: #fff;
+    border: none;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.18);
+    z-index: 2002;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 2rem;
+  }
+  .sidebar-fab-toggle:hover {
+    background: #005bb5;
+  }
+}
+
+.course-header {
+    background: #fff; ;
+    color: #0066cc;
+    padding: 20px;
+    position: relative;
+    font-weight: 700;
+    font-size: 1.2rem;
+}
+
+.course-title {
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    padding-right: 30px;
+    /* color: #0066cc;
+     */
+     /* border-bottom-color: #2563eb; */
+    font-weight: 700;
+    background: linear-gradient(90deg, #0066cc 0%, #4f9ef7 50%, #8b5cf6 100%);
+
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.back-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #0066cc;
+    text-decoration: none;
+    font-size: 15px;
+    margin-bottom: 15px;
+    opacity: 0.9;
+    font-weight: 600;
+}
+
+.close-btn {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: #0066cc;
+    font-size: 20px;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.lesson-list {
+    margin: 0;
+    padding: 0;
+}
+.lesson-list li {
+    display: flex;
+    align-items: center;
+    padding: 0.7rem 0.5rem 0.7rem 0.5rem;
+    cursor: pointer;
+    border-left: 4px solid transparent;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+.lesson-list li.active,
+.lesson-list li:hover {
+    background: #0066cc;
+    color: #fff;
+}
+
+.lesson-list li .bi {
+    margin-right: 0.7rem;
+    font-size: 1.1rem;
+    color: #0066cc;
+}
+.lesson-list li:hover .bi ,
+.lesson-list li.active .bi {
+    color: #fff;
+}
+
+.lesson-list li .lesson-number {
+    background: #e9ecef;
+    color: #0066cc;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+    margin-right: 0.7rem;
+    font-weight: 700;
+}
+
+.lesson-list li.active .lesson-number {
+    background: #fff;
+    color: #0066cc;
+}

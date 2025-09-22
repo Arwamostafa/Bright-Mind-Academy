@@ -1,0 +1,44 @@
+<!-- <div class="max-w-2xl w-100 mx-auto  p-5 rounded shadow-lg"  >
+  <form [formGroup]="quizForm" (ngSubmit)="submitQuiz()" #resultPdf>
+  <div *ngFor="let q of questions" class="mt-5 p-4 rounded bg-white">
+    <h3 class="text-lg font-semibold mb-2">{{ q.content }}</h3>
+    <div *ngFor="let option of q.options">
+      <label class="flex items-center space-x-2">
+        <input type="radio" [formControlName]="q.id.toString()" [value]="option.id.toString()" />
+        <span>{{ option.name }}</span>
+      </label>
+    </div>
+
+    <span
+      *ngIf="submitted && quizForm.controls[q.id.toString()]"
+      [ngClass]="{
+        'text-green-600': quizForm.controls[q.id.toString()].value === getCorrectOptionId(q),
+        'text-red-600': quizForm.controls[q.id.toString()].value !== getCorrectOptionId(q)
+      }"
+      class="text-sm font-medium"
+    >
+      Correct Answer: {{ getCorrectOptionName(q) }}
+    </span>
+  </div>
+
+  <div class="mt-3 d-flex align-items-center">
+    <button type="submit" class="btn btn-light me-2">Submit Quiz</button>
+    <button type="button" (click)="resetQuiz()" class="btn btn-light">Reset</button>
+
+    <div *ngIf="submitted">
+      <h2 class="text-xl font-bold">
+        Your Score: {{ score }} / {{ totalMarks }}
+      </h2>
+    </div>
+  </div>
+</form>
+
+<button
+  (click)="downloadPDF()"
+  class="btn mx-auto mt-4"
+  style="background-color: #0066CC; color: aliceblue;"
+>
+  Download PDF
+</button>
+
+</div> -->

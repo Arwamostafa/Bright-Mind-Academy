@@ -1,0 +1,22 @@
+.left-msg {
+  text-align: left;
+  background-color: #6f6c6cff;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  max-width: 60%;
+  color: white;
+}
+
+.right-msg {
+  text-align: right;
+  background-color: #007bff;
+  color: white;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 10px;
+  margin-left: auto;
+  max-width: 60%;
+}
+
+

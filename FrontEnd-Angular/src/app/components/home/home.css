@@ -1,0 +1,101 @@
+.jumbotron {
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  background-color: #e9ecef;
+  border-radius: 0.3rem;
+}
+
+@media (min-width: 576px) {
+  .jumbotron {
+    padding: 4rem 2rem;
+  }
+}
+
+.jumbotron-fluid {
+  padding-right: 0;
+  padding-left: 0;
+  border-radius: 0;
+}
+
+.jumbotron {
+  background: linear-gradient(rgba(255, 255, 255, 0.5), rgb(0, 102, 204, 1)), url("../../../../public/header.png"), no-repeat center center;
+  background-size: cover;
+}
+
+.overlay-top::before,
+.overlay-bottom::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 85px;
+  left: 0;
+  z-index: 1;
+}
+
+.overlay-bottom::after {
+  bottom: 0;
+  background: url("../../../../public/overlay-bottom.png") bottom center no-repeat;
+  background-size: contain;
+}
+
+.hover-move {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.hover-move:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.image-wrapper {
+  position: relative;
+  overflow: hidden;
+}
+
+.image-wrapper img {
+  width: 100%;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.image-wrapper::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.image-wrapper:hover::after {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Floating button */
+.floating-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+}
+
+/* Panel style */
+.panel {
+  position: fixed;
+  bottom: 70px; /* Above the button*/
+  right: 20px;
+  width: 300px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  padding: 15px;
+  z-index: 1000;
+
+}

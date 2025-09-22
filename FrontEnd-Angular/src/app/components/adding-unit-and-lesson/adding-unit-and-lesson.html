@@ -1,0 +1,473 @@
+<div class="_class">
+
+<!-- //!SECTION 1: UnitForms -->
+ <table>
+    <thead>
+        <tr>
+            <th>Unit Name</th>
+            <th>Unit Description</th>
+            <th>Unit Subject</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor ="let unit of Units">
+            <td>{{unit.title}}</td>
+            <td>{{unit.description}}</td>
+            <td>{{unit.subjectName}}</td>
+            <td class="actions">
+                <button (click)="UPDATEUnit(unit.id)" >Update Unit</button>
+                <button (click)="DELETE(unit.id)" >Delete Unit</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+  <form  [formGroup]="unitForm" (ngSubmit)="onSubmit()">
+    <h1 style="text-align: center; color: #0066cc; margin: 10px;">Add Unit</h1>
+<div>
+     <div>
+        <label hidden id="UnitName">Unit id</label>
+        <input formControlName="id" type="hidden" placeholder="Unit id"  />
+    </div>
+
+
+</div>
+<div>
+     <div>
+        <label id="UnitName">Unit Name</label>
+        <input formControlName="title" placeholder="Unit Name" />
+    </div>
+
+ <div *ngIf="unitForm.get('title')?.touched">
+  <p *ngIf="unitForm.get('title')?.hasError('required')">Name is required</p>
+  <p *ngIf="unitForm.get('title')?.hasError('minlength')">Name must be at least 3 characters</p>
+  </div>
+</div>
+
+<div>
+ <div>
+        <label id="UnitName">Description</label>
+        <textarea formControlName="description" placeholder="Unit Description" rows="3"></textarea>
+</div>
+<div *ngIf="unitForm.get('description')?.touched">
+  <p *ngIf="unitForm.get('description')?.hasError('required')">description is required</p>
+  <p *ngIf="unitForm.get('description')?.hasError('minlength')">description must be at least 3 characters</p>
+</div>
+
+</div>
+
+
+<div>
+     <div>
+        <label id="UnitName">Subjects</label>
+        <select name="Subject" id="Subject" formControlName="subjectId">
+            <option value=""  selected>Select Subject</option>
+            <option *ngFor="let subject of subjects" [value]="subject.subjectID">{{subject.subjectName}}</option>
+
+        </select>
+    </div>
+    <!-- Alerts -->
+            <div *ngIf="unitForm.get('subjectId')?.invalid && unitForm.get('subjectId')?.touched">
+              <p style="color: brown;">Subject is required</p>
+            </div>
+
+</div>
+
+
+<button type="submit" style="width: 100%; background-color: #0066cc;">
+  {{ unitForm.get('id')?.value ? 'Update Unit' : 'Add Unit' }}
+</button>
+</form>
+
+<!-- //!SECTION 2: Unit Table -->
+
+</div>
+
+
+
+<div class="lesson" >
+    <!-- //!SECTION 4 - Lessons Table -->
+<table >
+    <thead>
+        <tr>
+            <th> Name</th>
+
+            <th>Unit </th>
+            <th>Assigment Deadline</th>
+            <th>Update</th>
+            <th>Delete</th>
+            <th>Details</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let lesson of Lessons">
+            <td>{{lesson.title}}</td>
+
+            <td>{{lesson.unitName}}</td>
+            <td>{{lesson.assigmentDeadLine}}</td>
+            <td ><button (click)="UpdateLesson(lesson.id)" class="btn btn-warning" >Update Lesson</button></td>
+                <td><button (click)="DeleteLesson(lesson.id)" class="btn btn-danger" >Delete Lesson</button></td>
+              <td> <button (click)="GetById(lesson.id)" class="btn btn-primary" > More Details about the Lesson</button></td>
+
+        </tr>
+    </tbody>
+</table>
+
+<!--  //!SECTION 3: Lesson Forms -->
+  <form [formGroup]="lessonForm" (ngSubmit)="onLessonSubmit()" *ngIf="!isDetails">
+  <h1 style="text-align: center; color: #0066cc; margin: 10px;">Add Lesson</h1>
+  <input formControlName="id" type="hidden" />
+
+  <!-- Title -->
+  <div>
+    <label for="lessonTitle">Name *</label>
+    <input id="lessonTitle" formControlName="title" placeholder="Lesson Name" />
+    <div *ngIf="lessonForm.get('title')?.touched">
+      <p *ngIf="lessonForm.get('title')?.hasError('required')" class="error">Name is required</p>
+      <p *ngIf="lessonForm.get('title')?.hasError('minlength')" class="error">Name must be at least 3 characters</p>
+    </div>
+  </div>
+
+  <!-- Description -->
+  <div>
+    <label for="lessonDescription">Description *</label>
+    <textarea id="lessonDescription" formControlName="description" placeholder="Description" rows="3"></textarea>
+    <div *ngIf="lessonForm.get('description')?.touched">
+      <p *ngIf="lessonForm.get('description')?.hasError('required')" class="error">Description is required</p>
+      <p *ngIf="lessonForm.get('description')?.hasError('minlength')" class="error">Description must be at least 10 characters</p>
+    </div>
+  </div>
+  <!-- Subject -->
+<div>
+  <label id="UnitName">Subjects</label>
+  <select name="Subject" id="Subject" formControlName="subjectId" (change)="onSubjectChange($event)">
+    <option value="" disabled selected>Select Subject</option>
+    <option *ngFor="let subject of subjects" [value]="subject.subjectID">
+      {{subject.subjectName}}
+    </option>
+  </select>
+  <div *ngIf="lessonForm.get('subjectId')?.invalid && lessonForm.get('subjectId')?.touched">
+    <p style="color: brown;">Subject is required</p>
+  </div>
+</div>
+
+<!-- Unit -->
+<div>
+  <label for="unitSelect">Unit *</label>
+  <select id="unitSelect" formControlName="unitId">
+    <option value="" disabled>Select Unit</option>
+    <option *ngFor="let unit of Units" [value]="unit.id">{{ unit.title }}</option>
+  </select>
+  <p *ngIf="lessonForm.get('unitId')?.invalid && lessonForm.get('unitId')?.touched" class="error">
+    Unit is required
+  </p>
+</div>
+
+
+  <!-- Video -->
+  <div>
+    <label for="videoFile">Video </label>
+    <input type="file" id="videoFile" (change)="onVideoFileChange($event)" accept="video/*" />
+    <div *ngIf=" invalidVideoType ">
+      <!-- <p *ngIf="videoFileData" class="error">Video is required</p> -->
+      <p *ngIf="invalidVideoType" class="error">Only video files are allowed</p>
+    </div>
+  </div>
+
+  <!-- PDF -->
+<div>
+  <label for="pdfInput">PDF Resources </label>
+  <input type="file" id="pdfInput" (change)="onPdfFileChange($event)" accept=".pdf" />
+  <div *ngIf="invalidPdfType">
+    <p class="error">Only PDF files are allowed</p>
+  </div>
+</div>
+
+<!-- Assignment -->
+<div>
+  <label for="AssigmentInput">Assignment </label>
+  <input type="file" id="AssigmentInput" (change)="onPdfFileChange($event)" accept=".pdf" />
+  <div *ngIf="invalidAssignmentType">
+    <p class="error">Only PDF files are allowed</p>
+  </div>
+</div>
+
+  <!-- Assignment Deadline -->
+  <div>
+    <label for="assignmentDeadline">Assignment Deadline</label>
+    <input type="date" id="assignmentDeadline" formControlName="assignmentDeadline" />
+    <p *ngIf="assignmentFileData && !lessonForm.get('assignmentDeadline')?.value" class="error">
+      Assignment Deadline is required when assignment is provided
+    </p>
+  </div>
+
+  <button type="submit" style="width: 100%; background-color: #0066cc;">
+    {{ lessonForm.get('id')?.value ? 'Update Lesson' : 'Add Lesson' }}
+  </button>
+</form>
+
+</div>
+<!-- //!SECTION 4:LessonDetails -->
+<div class="wrapper" *ngIf="isDetails">
+
+<!-- <h1 style="text-align: center;">{{lesson.unitName}}:{{lesson.title}}</h1> -->
+
+<div class="container ">
+    <div class="tabs">
+    <div class="selector"></div>
+    <a href="#" *ngFor="let tab of tabs; let i = index"
+       [class.active]="activeTab === i"
+       (click)="selectTab(i, $event)">
+      <i [class]="tab.icon"></i> {{ tab.label }}
+    </a>
+  </div>
+  <div class="tab-content mt-4">
+    <ng-container [ngSwitch]="tabs[activeTab].key">
+
+      <div *ngSwitchCase="'description'">
+        <h3 class="text-center" style="color: #0066cc;">Details</h3>
+        <p class="my-5 fs-4 text-black">{{ lesson.description }}</p>
+        <h3 class="text-center" style="color: #0066cc;">Video Session</h3>
+        <div class="mx-auto text-center">
+          <video  [src]="lesson.videoUrl" controls class="w-50 "></video>
+        </div>
+
+        <!-- <div class="me-5">
+            <button class="btn btn-secondary">Back </button>
+
+        </div> -->
+      </div>
+
+
+
+      <div *ngSwitchCase="'pdf'">
+        <h2 class="text-center" style="color: #0066cc;">Download Resources</h2>
+        <div class="text-center">
+            <button class="btn btn-primary text-center me-auto my-5"
+                *ngIf="lesson?.pdfUrl"
+                (click)="downloadPdf(lesson?.pdfUrl??'')">
+          Download From Here
+        </button>
+    </div>
+
+
+
+
+      </div>
+
+      <div *ngSwitchCase="'assignment'">
+         <h2 class="text-center my-5" style="color: #0066cc;">Assignment</h2>
+        <div class="text-center my-5">
+            <button class="btn btn-primary text-center me-auto my-5"
+                *ngIf="lesson?.pdfUrl"
+                (click)="downloadPdf(lesson?.assigmentUrl??'')">
+          Download From Here
+        </button>
+    </div>
+
+      </div>
+
+    </ng-container>
+  </div>
+
+  <div class=" text-center my-3" *ngIf="isDetails">
+            <button class="btn btn-secondary w-25 my-5" (click)="this.closeDetails()" >Back </button>
+
+        </div>
+    <!-- <h2>Description Of the Lesson</h2>
+    <p>{{lesson.description}}</p>
+
+    <video [src]="lesson.videoUrl" class="w-50" controls></video>
+
+<button class="btn btn-primary" *ngIf="lesson?.pdfUrl" (click)="downloadPdf(lesson.pdfUrl,'resoures')">
+  Download PDF
+</button>
+<div>
+<button class="btn btn-primary ms-5" *ngIf="lesson?.assigmentUrl" (click)="downloadPdf(lesson.assigmentUrl,'resoures')">
+  Download Assigment
+</button>
+</div> -->
+
+
+</div>
+</div>
+
+
+<!-- //!SECTION 5:  Quiz Form  -->
+<form [formGroup]="QuizForm" (ngSubmit)="onQuizSubmit()" *ngIf="!isDetailsQuiz">
+  <h1 style="text-align: center; color: #0066cc; margin: 10px;">
+    {{ QuizForm.get('id')?.value ? 'Update Quiz' : 'Add Quiz' }}
+  </h1>
+  <input formControlName="id" type="hidden" />
+
+  <!-- Description -->
+  <div>
+    <label for="quizDescription">Description *</label>
+    <input id="quizDescription" formControlName="description" placeholder="Quiz Description" />
+    <div *ngIf="QuizForm.get('description')?.touched">
+      <p *ngIf="QuizForm.get('description')?.hasError('required')" class="error">Description is required</p>
+      <p *ngIf="QuizForm.get('description')?.hasError('minlength')" class="error">Must be at least 3 characters</p>
+    </div>
+  </div>
+
+  <!-- Total Marks -->
+  <div>
+    <label for="totalMarks">Total Marks *</label>
+    <input id="totalMarks" type="number" formControlName="totalMarks" />
+    <div *ngIf="QuizForm.get('totalMarks')?.invalid && QuizForm.get('totalMarks')?.touched">
+      <p class="error">Total marks are required</p>
+    </div>
+  </div>
+
+  <!-- Subject -->
+  <div>
+    <label>Subject *</label>
+    <select name="Subject" id="Subject" formControlName="subjectId" (change)="onSubjectChangeQuiz($event)">
+    <option value="" disabled selected>Select Subject</option>
+    <option *ngFor="let subject of subjects" [value]="subject.subjectID">
+      {{subject.subjectName}}
+    </option>
+  </select>
+    <div *ngIf="QuizForm.get('subjectId')?.invalid && QuizForm.get('subjectId')?.touched">
+      <p class="error">Subject is required</p>
+    </div>
+  </div>
+
+  <!-- Unit -->
+  <div>
+    <label>Unit </label>
+    <select formControlName="unitId" (change)="onUnitChangeQuiz($event)">
+      <option value="" disabled selected>Select Unit</option>
+     <option *ngFor="let unit of unitsquiz" [value]="unit.id">
+      {{unit.title}}
+    </option>
+    </select>
+    <div *ngIf="QuizForm.get('unitId')?.invalid && QuizForm.get('unitId')?.touched">
+      <p class="error">Unit is required</p>
+    </div>
+  </div>
+
+  <!-- Lesson -->
+  <div>
+    <label>Lesson </label>
+    <select formControlName="lessonId">
+      <option value="" disabled selected>Select Lesson</option>
+      <option *ngFor="let lesson of lessonsquiz" [value]="lesson.id">
+        {{ lesson.title }}
+      </option>
+    </select>
+    <div *ngIf="QuizForm.get('lessonId')?.invalid && QuizForm.get('lessonId')?.touched">
+      <p class="error">Lesson is required</p>
+    </div>
+  </div>
+
+  <!-- Questions -->
+  <div formArrayName="questions">
+  <h3>Questions</h3>
+  <div *ngFor="let q of questions.controls; let qi = index" [formGroupName]="qi" class="question-block">
+    <label>Question {{ qi + 1 }}</label>
+    <input formControlName="content" placeholder="Enter question" />
+    <input formControlName="mark" type="number" placeholder="Marks" />
+
+    <!-- Options -->
+    <div formArrayName="options">
+      <h4>Options</h4>
+      <div *ngFor="let o of getOptions(qi).controls; let oi = index" [formGroupName]="oi">
+  <input formControlName="name" placeholder="Option text" />
+  <div><input type="checkbox" formControlName="isCorrect" style="vertical-align: mi;"/> <span>Correct</span> </div>
+  
+  <button type="button"class="btn btn-danger" (click)="removeOption(qi, oi)">Remove Option</button>
+</div>
+
+
+      <button type="button " class="btn btn-secondary" (click)="addOption(qi)">Add Option</button>
+    </div>
+
+    <button type="button "  class="btn btn-danger"(click)="removeQuestion(qi)">Remove Question</button>
+  </div>
+  <button type="button"class="btn btn-secondary" (click)="addQuestion()"> Add Question</button>
+</div>
+
+
+  <button type="submit" style="width: 100%; background-color: #0066cc; margin-top: 15px;">
+    {{ QuizForm.get('id')?.value ? 'Update Quiz' : 'Add Quiz' }}
+  </button>
+</form>
+
+
+
+<table class="table table-striped table-bordered">
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Total Marks</th>
+      <th>Lesson</th>
+      <th>Update</th>
+      <th>Delete</th>
+      <th>Details</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let quiz of quizzes">
+      <td>{{ quiz.description }}</td>
+      <td>{{ quiz.totalMarks }}</td>
+      <td>{{ quiz.lessonId }}</td>
+      <td>
+        <button (click)="editQuiz(quiz)" class="btn btn-warning">Update</button>
+      </td>
+      <td>
+        <button (click)="deleteQuiz(quiz.id)" class="btn btn-danger">Delete</button>
+      </td>
+      <td>
+        <button (click)="showDetails(quiz)" class="btn btn-primary">Details</button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<div class="wrapper" *ngIf="isDetailsQuiz">
+  <div class="container">
+    <div class="tabs">
+      <div class="selector"></div>
+      <a href="#" *ngFor="let tab of quizTabs; let i = index"
+         [class.active]="activeQuizTab === i"
+         (click)="selectQuizTab(i, $event)">
+        <i [class]="tab.icon"></i> {{ tab.label }}
+      </a>
+    </div>
+
+    <div class="tab-content mt-4">
+      <ng-container [ngSwitch]="quizTabs[activeQuizTab].key">
+
+        <!-- Details -->
+        <div *ngSwitchCase="'details'">
+          <h3 class="text-center" style="color: #0066cc;">Quiz Details</h3>
+          <p class="my-3 fs-5"><strong>Description:</strong> {{ quizDetails?.description }}</p>
+          <p class="my-3 fs-5"><strong>Total Marks:</strong> {{ quizDetails?.totalMarks }}</p>
+          <p class="my-3 fs-5"><strong>Assigned Before:</strong> {{ quizDetails?.assignedBefore }}</p>
+        </div>
+
+        <!-- Questions -->
+        <div *ngSwitchCase="'questions'">
+          <h3 class="text-center" style="color: #0066cc;">Questions & Options</h3>
+          <div *ngFor="let q of quizDetails?.questions; let qi = index" class="mb-4 p-3 border rounded">
+            <h5>Q{{ qi + 1 }}: {{ q.content }} ({{ q.mark }} Marks)</h5>
+            <ul>
+              <li *ngFor="let o of q.options">
+                {{ o.name }}
+                <span *ngIf="o.isCorrect" class="badge bg-success ms-2">Correct</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+      </ng-container>
+    </div>
+
+    <div class="text-center my-3">
+      <button class="btn btn-secondary w-25" (click)="closeDetailsQuiz()">Back</button>
+    </div>
+  </div>
+</div>

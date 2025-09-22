@@ -1,0 +1,97 @@
+<form [formGroup]="AdminForm" (ngSubmit)="onSubmit()">
+  <div>
+    <label for="firstName">First Name</label>
+    <input type="text" id="firstName" formControlName="firstName" />
+    <div *ngIf="firstName?.invalid && (firstName?.dirty || firstName?.touched)">
+        <div *ngIf="firstName?.errors?.['required']">
+            <p style="color: brown;">First name is required.</p>
+        </div>
+    </div>
+  </div>
+  <div>
+    <label for="lastName">Last Name</label>
+    <input type="text" id="lastName" formControlName="lastName" />
+    <div *ngIf="lastName?.invalid && (lastName?.dirty || lastName?.touched)">
+        <div *ngIf="lastName?.errors?.['required']">
+            <p style="color: brown;">Last name is required.</p>
+        </div>
+    </div>
+  </div>
+
+  <div>
+    <label for="nationalId">National Id</label>
+    <input type="number" id="nationalId" formControlName="nationalId" />
+    <div *ngIf="nationalId?.invalid && (nationalId?.dirty || nationalId?.touched)">
+        <div *ngIf="nationalId?.errors?.['required']">
+            <p style="color: brown;">National Id is required.</p>
+        </div>
+        <div *ngIf="email?.errors?.['pattern']">
+            <p style="color: brown;">National Id is Invalid </p>
+        </div>
+    </div>
+  </div>
+
+    <div>
+        <label for="phoneNumber">Phone Number</label>
+        <input type="text" id="phoneNumber" formControlName="phoneNumber" />
+        <div *ngIf="phoneNumber?.invalid && phoneNumber?.touched">
+            <p style="color: brown;">Phone is required and must be a valid 10-digit number</p>
+        </div>
+    </div>
+
+  <div>
+    <label for="email">Email</label>
+    <input type="email" id="email" formControlName="email" />
+    <div *ngIf="email?.invalid && (email?.dirty || email?.touched)">
+        <div *ngIf="email?.errors?.['required']">
+            <p style="color: brown;">Email is required.</p>
+        </div>
+        <div *ngIf="email?.errors?.['pattern']">
+            <p style="color: brown;">Invalid email format</p>
+        </div>
+    </div>
+  </div>
+
+  <div>
+      <label for="password">Password</label>
+      <input type="password" id="password" formControlName="password" />
+  </div>
+  <div *ngIf="password?.invalid && (password?.dirty || password?.touched)">
+      <div *ngIf="password?.errors?.['required']">
+          <p style="color: brown;">Password is required.</p>
+      </div>
+      <div *ngIf="password?.errors?.['pattern']">
+          <p style="color: brown;">Password must include letters, numbers, and special characters, and must not contain spaces, and minimum length 8 characters </p>
+      </div>
+  </div>
+
+    <button *ngIf="editId == null" type="submit" style="margin-top: 20px; width: 100%; background-color: #0066cc;">Add</button>
+    <button *ngIf="editId != null" type="submit" style="margin-top: 20px; width: 100%; background-color: #0066cc;">Update</button>
+
+</form>
+
+<table>
+    <thead>
+        <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Phone Number</th>
+            <th>National Id</th>
+            <th>Email</th>
+            <th style="text-align: center;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let admin of admins">
+            <td>{{ admin.firstName }}</td>
+            <td>{{ admin.lastName }}</td>
+            <td>{{ admin.phoneNumber }}</td>
+            <td>{{ admin.nationalId }}</td>
+            <td>{{ admin.email }}</td>
+            <td class="actions">
+                <button (click)="Update(admin.id)">Update</button>
+                <button (click)="Delete(admin.id)" style="background-color: brown">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>

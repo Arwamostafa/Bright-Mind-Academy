@@ -1,0 +1,164 @@
+<div class="signup-container">
+  <div class="signup-card">
+    <h1 class="signup-title">Register</h1>
+    <p class="signup-subtitle">Enter your details to create your account</p>
+
+    <form [formGroup]="signupForm" (submit)="creatingAccount()" class="signup-form">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input
+          type="text"
+          id="firstName"
+          formControlName="firstName"
+          placeholder="Your first name"
+          class="form-input"/>
+        @if(signupForm.get("firstName")?.touched && signupForm.get("firstName")?.invalid){
+          <div class="text-danger">
+            @if(signupForm.get("firstName")?.errors?.['required']){
+              <p>first name is required</p>
+            }
+            @if(signupForm.get("firstName")?.errors?.['pattern']){
+              <p>first name must contain at least 3 characters starts with a letter </p>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input
+          type="text"
+          id="latsName"
+          formControlName="lastName"
+          placeholder="Your last name"
+          class="form-input"/>
+        @if(signupForm.get("lastName")?.touched && signupForm.get("lastName")?.invalid){
+          <div class="text-danger">
+            @if(signupForm.get("lastName")?.errors?.['required']){
+              <p>last name is required</p>
+            }
+            @if(signupForm.get("lastName")?.errors?.['pattern']){
+              <p>last name must contain at least 3 characters starts with a letter </p>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="text" class="form-input" name="email" id="email" formControlName="email" placeholder="Enter your username">
+        @if(signupForm.get("email")?.touched && signupForm.get("email")?.invalid){
+          <div class="text-danger">
+            @if(signupForm.get("email")?.errors?.['required']){
+              <p>email is required</p>
+            }
+            @if(signupForm.get("email")?.errors?.['pattern']){
+              <p>email is invalid</p>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="phoneNumber">Phone Number</label>
+        <input
+          type="tel"
+          id="phoneNumber"
+          formControlName="phoneNumber"
+          placeholder="01234567890"
+          class="form-input">
+        @if(signupForm.get("phoneNumber")?.touched && signupForm.get("phoneNumber")?.invalid){
+          <div class="text-danger">
+            @if(signupForm.get("phoneNumber")?.errors?.['required']){
+              <p>phone number is required</p>
+            }
+            @if(signupForm.get("phoneNumber")?.errors?.['pattern']){
+              <p>phone number is invalid</p>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label>Gender</label>
+        <div class="radio-group">
+          <label class="radio-option" *ngFor="let gender of genders">
+            <input type="radio" name="gender" [value]="gender" formControlName="gender">
+            <span class="radio-label">{{gender}}</span>
+          </label>
+        </div>
+        <div *ngIf="signupForm.get('gender')?.invalid && (signupForm.get('gender')?.dirty || signupForm.get('gender')?.touched)"
+            class="validation-error">
+          <div *ngIf="signupForm.get('gender')?.errors?.['required']">Gender is required</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="age">Age</label>
+        <input
+          type="number"
+          id="age"
+          formControlName="age"
+          placeholder="Enter your age"
+          class="form-input"
+          min="6"
+          max="30">
+        @if(signupForm.get("age")?.touched && signupForm.get("age")?.invalid){
+          <div class="text-danger">
+            @if(signupForm.get("age")?.errors?.['required']){
+              <p>age is required</p>
+            }
+            @if(signupForm.get("age")?.errors?.['min'] || signupForm.get("age")?.errors?.['max']){
+              <p>age is invalid</p>
+            }
+          </div>
+        }
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Password</label>
+        <input
+          type="password"
+          id="password"
+          formControlName="password"
+          placeholder="Enter password"
+          class="form-input"/>
+        @if(signupForm.get("password")?.touched && signupForm.get("password")?.invalid){
+          <div class="text-danger">
+            @if(signupForm.get("password")?.errors?.['required']){
+              <p>password is required</p>
+            }
+            @if(signupForm.get("password")?.errors?.['pattern']){
+              <p>Password must include letters, numbers, and special characters, and must not contain spaces, and minimum length 8 characters </p>          }
+          </div>
+        }
+      </div>
+
+
+      <div class="form-group">
+        <label for="lastName">Address</label>
+        <input
+          type="text"
+          id="address"
+          formControlName="address"
+          placeholder="Your address"
+          class="form-input"/>
+        @if(signupForm.get("address")?.touched && signupForm.get("address")?.invalid){
+          <div class="text-danger">
+            @if(signupForm.get("address")?.errors?.['required']){
+              <p>address is required</p>
+            }
+          </div>
+        }
+      </div>
+
+      <button type="submit" class="signup-btn" [disabled]="!signupForm.valid">
+        Sign up
+      </button>
+    </form>
+    <div class="text-center">
+      Already have an account?
+      <div class="d-inline" routerLink="/login" style=" color: #0066cc; cursor: pointer;"> Login</div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,124 @@
+/* === Form Styling === */
+form {
+  /* max-width: 600px; */
+  width: 100%;
+  margin: 20px auto;
+  padding: 24px;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  font-family: Arial, sans-serif;
+}
+
+form div {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #333;
+}
+
+input, select,textarea {
+  width: 100%;
+  padding: 10px;
+  font-size: 15px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+input:focus, select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+p {
+  margin: 4px 0 0;
+  font-size: 14px;
+  color: brown;
+}
+
+/* Submit Button */
+button[type="submit"] {
+  padding: 10px 20px;
+  font-size: 15px;
+  font-weight: 600;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  background-color: #218838;
+}
+
+/* === Table Styling === */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 40px;
+  font-family: Arial, sans-serif;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  background-color: white;
+}
+
+th, td {
+  padding: 14px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+thead {
+  background-color: #f5f7fa;
+  color: #333;
+}
+
+tbody tr:hover {
+  background-color: #f9fbff;
+}
+
+/* Action Buttons in Table */
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.actions button {
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+/* Update Button */
+.actions button:first-child {
+  background-color: #007bff;
+  color: white;
+}
+
+.actions button:first-child:hover {
+  background-color: #0056b3;
+}
+
+/* Delete Button */
+.actions button:last-child {
+  background-color: #dc3545;
+  color: white;
+}
+
+.actions button:last-child:hover {
+  background-color: #a71d2a;
+}

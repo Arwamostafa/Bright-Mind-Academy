@@ -1,0 +1,54 @@
+<div class="payment-container">
+  <div class="payment-header">
+    <h1 class="payment-title">PAYMENT</h1>
+    <p class="payment-subtitle">ALL TRANSACTIONS ARE SECURE AND ENCRYPTED</p>
+    <div class="secure-notice">
+      <span class="medium-text">Medium</span>
+    </div>
+  </div>
+
+  <form [formGroup]="paymentForm" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" formControlName="email" placeholder="your@email.com">
+    </div>
+
+    <div class="form-group">
+      <label for="cardNumber">Card number</label>
+      <div class="input-wrapper">
+        <input type="text" id="cardNumber" formControlName="cardNumber" 
+               placeholder="1234 1234 1234 1234" (input)="formatCardNumber($event)">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" 
+             alt="VISA" class="card-icon">
+      </div>
+    </div>
+
+    <div class="card-row">
+      <div class="form-group">
+        <label for="expiration">Expiration</label>
+        <input type="text" id="expiration" formControlName="expiration" 
+               placeholder="MM / YY" (input)="formatExpiration($event)">
+      </div>
+
+      <div class="form-group">
+        <label for="cvc">CVC</label>
+        <input type="text" id="cvc" formControlName="cvc" placeholder="CVC" maxlength="4">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="country">Country</label>
+      <select id="country" formControlName="country">
+        <option *ngFor="let country of countries" [value]="country">{{country}}</option>
+      </select>
+    </div>
+
+    <button type="submit" class="pay-button" [disabled]="!paymentForm.valid">
+        <span class="button-text">Pay Now</span>
+          <span class="button-icon">→</span>
+       
+    </button>
+  </form>
+
+
+</div>

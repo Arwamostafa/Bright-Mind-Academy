@@ -1,0 +1,22 @@
+<div class="py-5 container">
+  <div style="background-color: white; border-radius: 20px; padding: 10px; box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2); ">
+    <div class="section-title text-center position-relative mb-4 row">
+      <h1 class="display-5 my-5" style="color: #0066cc; font-weight: bold ;">Subject</h1>
+      <div style="padding: 0px 120px; display: flex; justify-content: center; " >
+        <div>
+          <img [src]="subject?.imgUrl" style="width: 300px; height: 350px;" [alt]="subject?.instructorName">
+        </div>
+        <div style="text-align: start; padding: 0px 50px;">
+          <h1>{{subject?.subjectName}}</h1>
+          <h1>{{subject?.instructorName}}</h1>
+          <p>{{subject?.subjectDescription}}</p>
+          <h1>{{subject?.subjectPrice| currency : "EGP "}}</h1>
+          <button class="btn btn-light mt-3" style="color: white; background-color: #0066cc;" [routerLink]="['/payment']">Join Now</button>
+          <button class="btn btn-light mt-3" style="color: white; background-color: #0066cc;" [routerLink]="['/courseDashboard',currentId]">dashboard</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

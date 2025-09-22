@@ -1,0 +1,317 @@
+<div class="subject">
+  <form [formGroup]="SubjectForm" (ngSubmit)="addSubject()">
+    <h1 style="text-align: center; color: #0066cc; margin: 10px;">Add Subject</h1>
+    <div>
+        <label for="subjectName">Subject Name</label>
+        <input id="subjectName" formControlName="subjectName" />
+        <div *ngIf="subjectName?.invalid && subjectName?.touched">
+            <p style="color: brown;">Name is required and must be at least 3 characters</p>
+        </div>
+    </div>
+    <div>
+        <label for="subjectDescription">Subject Description</label>
+        <textarea type="" id="subjectDescription" formControlName="subjectDescription"></textarea>
+        <div *ngIf="subjectDescription?.invalid && subjectDescription?.touched">
+            <p style="color: brown;">Description is required and must be at least 5 characters</p>
+        </div>
+    </div>
+
+    <div>
+        <label for="price">Subject Price</label>
+        <input id="price" formControlName="price" />
+        <div *ngIf="price?.invalid && price?.touched">
+            <p style="color: brown;">Price is required and must be at least 3 characters</p>
+        </div>
+    </div>
+
+    <div>
+        <label for="instructorID">Select Instructor Of Subject</label>
+        <select name="instructorID" id="instructorID" formControlName="instructorID" >
+            <div *ngFor="let instructor of instructors">
+            <option [value]="instructor.id">{{instructor.firstName}} {{instructor.lastName}}</option>
+            </div>
+        </select>
+    </div>
+     <div>
+        <label for="classID">Select Class Of Subject</label>
+        <select name="classID" id="classID" formControlName="classID" >
+            <div *ngFor="let class of classes">
+            <option [value]="class.classID">{{class.className}}</option>
+            </div>
+        </select>
+    </div>
+    <div>
+        <label for="trackID">Select Track Of Subject</label>
+        <select name="trackID" id="trackID" formControlName="trackID" >
+            <div *ngFor="let track of tracks">
+            <option [value]="track.trackID">{{track.trackName}}</option>
+            </div>
+        </select>
+    </div>
+    <button type="submit" style="margin-top: 20px; width: 100%; background-color: #0066cc;">Add Subject</button>
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Instructor</th>
+            <th>Class</th>
+            <th>Track</th>
+            <th style="text-align: center;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let subject of subjects">
+            <td>{{subject.subjectName}}</td>
+            <td>{{subject.subjectDescription}}</td>
+            <td>{{subject.instructorName}}</td>
+            <td>{{subject.className}}</td>
+            <td>{{subject.trackName}}</td>
+            <td class="actions" style="text-align: center;">
+                <button (click)="UpdateSubject(subject.subjectID)">Update</button>
+                <button (click)="DeleteSubject(subject.subjectID)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+</div>
+
+<!-- /************* Start Unit and lesson  ***************/ -->
+
+<app-adding-unit-and-lesson></app-adding-unit-and-lesson>
+
+<!-- /************* End Unit and lesson  ***************/ -->
+
+
+
+
+<!-- <div class="unit" >
+
+  <form [formGroup]="UnitForm" (ngSubmit)="onSubmitUnit()">
+    <h1 style="text-align: center; color: #0066cc; margin: 10px;">Add Units</h1>
+    <div>
+        <label for="title">Title</label>
+        <input id="title" formControlName="title" />
+        <div *ngIf="title?.invalid && title?.touched">
+            <p style="color: brown;">Title is required and must be at least 3 characters</p>
+        </div>
+    </div>
+    <div>
+        <label for="description">Description</label>
+        <textarea type="" id="description" formControlName="description"></textarea>
+        <div *ngIf="title?.invalid && title?.touched">
+            <p style="color: brown;">Title is required and must be at least 50 characters</p>
+        </div>
+    </div>
+    <div>
+        <label for="subjectName">Select subject Name of subjects</label>
+        <select name="subjectName" id="subjectName" formControlName="subjectName" >
+            <div *ngFor="let subjectName of subjects">
+            <option [value]="subjectName">{{subjectName}}</option>
+            </div>
+        </select>
+    </div>
+    <button type="submit" style="width: 100%; background-color: #0066cc;">Add</button>
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>Title</th>
+            <th>Description</th>
+            <th>Instructor</th>
+            <th style="text-align: center;">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let unit of units">
+            <td>{{unit.title}}</td>
+            <td>{{unit.description}}</td>
+            <td>{{unit.subjectName}}</td>
+            <td class="actions">
+                <button (click)="UpdateUnit(unit.id)">Update</button>
+                <button (click)="DeleteUnit(unit.id)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+
+</div>
+
+
+< /*************  Lesson   ***************/ -->
+<!-- <div class="leson">
+  <form [formGroup]="LessonForm" (ngSubmit)="onSubmitLesson()">
+    <h1 style="text-align: center; color: #0066cc; margin: 10px;">Add Lesson</h1>
+       <div>
+        <label for="subjectTitle">Select subject Name of subjects</label>
+        <select name="subjectTitle" id="subjectTitle" formControlName="subjectTitle" >
+            <div *ngFor="let subjectTitle of subjects">
+            <option [value]="subjectTitle">{{subjectTitle}}</option>
+            </div>
+        </select>
+    </div>
+     <div>
+        <label for="unitTitle">Select unit Name of subjects</label>
+        <select name="unitTitle" id="unitTitle" formControlName="unitTitle" >
+            <div *ngFor="let unitTitle of units">
+            <option [value]="unitTitle">{{unitTitle}}</option>
+            </div>
+        </select>
+    </div>
+    <div>
+        <label for="title">Title</label>
+        <input id="title" formControlName="title" />
+        <div *ngIf="title?.invalid && title?.touched">
+            <p style="color: brown;">Title is required and must be at least 3 characters</p>
+        </div>
+    </div>
+    <div>
+        <label for="description">Description</label>
+        <textarea type="" id="description" formControlName="description"></textarea>
+        <div *ngIf="title?.invalid && title?.touched">
+            <p style="color: brown;">Title is required and must be at least 50 characters</p>
+        </div>
+    </div>
+    <div>
+        <label for="pdfTitle">pdf title</label>
+        <input type="file" id="pdfTitle" formControlName="pdfTitle" />
+        <div *ngIf="pdfTitle?.invalid && pdfTitle?.touched">
+            <p style="color: brown;">Title is required and must be at least 3 characters</p>
+        </div>
+    </div>
+    <div>
+        <label for="videoTitle">video title</label>
+        <input type="file" id="videoTitle" formControlName="videoTitle" />
+        <div *ngIf="videoTitle?.invalid && videoTitle?.touched">
+            <p style="color: brown;">Title is required and must be at least 3 characters</p>
+        </div>
+    </div>
+        <div>
+        <label for="assignmentTitle">assignment title</label>
+        <input type="file" id="assignmentTitle" formControlName="assignmentTitle" />
+        <div *ngIf="assignmentTitle?.invalid && assignmentTitle?.touched">
+            <p style="color: brown;">Title is required and must be at least 3 characters</p>
+        </div>
+    </div>
+        <div>
+        <label for="assignmentDeadline">assignment Deadline</label>
+        <input type="date" id="assignmentDeadline" formControlName="assignmentDeadline" />
+        <div *ngIf="assignmentDeadline?.invalid && assignmentDeadline?.touched">
+            <p style="color: brown;">Title is required and must be at least 3 characters</p>
+        </div>
+    </div>
+    <button type="submit" style="background-color: #0066cc; width: 100%;">Add</button>
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>Unit Title</th>
+            <th>Title</th>
+            <th>Description</th>
+            <th>pdf Title</th>
+            <th>video Title</th>
+            <th>assignment Title </th>
+            <th>assignment Deadline</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let lesson of lessons">
+            <td>{{lesson.unitTitle}}</td>
+            <td>{{lesson.title}}</td>
+            <td>{{lesson.description}}</td>
+            <td>{{lesson.pdfTitle}}</td>
+            <td>{{lesson.videoTitle}}</td>
+            <td>{{lesson.assignmentTitle}}</td>
+            <td>{{lesson.assignmentDeadline}}</td>
+            <td class="actions">
+                <button (click)="UpdateLesson(lesson.id)">Update</button>
+                <button (click)="DeleteLesson(lesson.id)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table> -->
+
+
+
+<!-- </div>  -->
+
+
+<!-- /***************        Quiz     ***************************/ -->
+
+<!-- <form [formGroup]="QuizForm" (ngSubmit)="onSubmitQuiz()">
+    <h1 style="text-align: center; color: #0066cc; margin: 10px;">Add Quiz</h1>
+    <div>
+        <label for="lessonTitle">Select subject Name:</label>
+        <select formControlName="lessonTitle" id="lessonTitle">
+            <option *ngFor="let lesson of lessons" [value]="lesson">{{ lesson }}</option>
+        </select>
+    </div>
+    <div>
+        <label>Quiz Name:</label>
+        <input formControlName="quizname" placeholder="Quiz Title" />
+    </div>
+    <div>
+        <label>Total Marks:</label>
+        <input type="number" formControlName="quizTotalMarks" placeholder="Total Marks" />
+    </div>
+
+
+    <div formArrayName="questions">
+        <div *ngFor="let questionGroup of questions.controls; let i = index" [formGroupName]="i">
+            <hr />
+            <label>Question {{ i + 1 }}:</label>
+            <input formControlName="question" placeholder="Enter Question" />
+
+            <label>Correct Answer:</label>
+            <input formControlName="correctAnswer" placeholder="Correct Answer" />
+
+            <label>Mark:</label>
+            <input type="number" formControlName="mark" placeholder="Mark" />
+
+            <div formArrayName="options">
+                <div *ngFor="let optionCtrl of getOptions(i).controls; let j = index">
+                    <input [formControlName]="j" placeholder="Option {{ j + 1 }}" />
+                    <button type="button" (click)="removeOption(i, j)">Remove Option</button>
+                </div>
+                <button type="button" (click)="addOption(i)">Add Option</button>
+            </div>
+
+            <button type="button" (click)="removeQuestion(i)">Remove Question</button>
+        </div>
+    <button type="button" (click)="addQuestion()">Add Question</button>
+    </div>
+
+    <button type="submit" style="width: 100%; background-color: #0066cc;">Add Quiz</button>
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>lesson Title</th>
+            <th>quiz name</th>
+            <th>mark</th>
+            <th>quizTotalMarks</th>
+            <th>correctAnswer</th>
+            <th>questions </th>
+            <th>options</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let quiz of quizes">
+            <td>{{quiz.lessonTitle}}</td>
+            <td>{{quiz.quizname}}</td>
+            <td>{{quiz.mark}}</td>
+            <td>{{quiz.quizTotalMarks}}</td>
+            <td>{{quiz.correctAnswer}}</td>
+            <td>{{quiz.questions}}</td>
+            <td>{{quiz.options}}</td>
+            <td class="actions">
+                <button (click)="UpdateQuiz(quiz.id)">Update</button>
+                <button (click)="DeleteQuiz(quiz.id)">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+</table> -->

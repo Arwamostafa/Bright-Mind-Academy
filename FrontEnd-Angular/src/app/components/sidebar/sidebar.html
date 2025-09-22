@@ -1,0 +1,75 @@
+<button class="sidebar-fab-toggle" (click)="toggleSidebar()" aria-label="Toggle sidebar">
+  <ng-container *ngIf="!isSidebarOpen">
+    <!-- Menu icon -->
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <rect y="4" width="24" height="3" rx="1.5" fill="currentColor"/>
+      <rect y="10.5" width="24" height="3" rx="1.5" fill="currentColor"/>
+      <rect y="17" width="24" height="3" rx="1.5" fill="currentColor"/>
+    </svg>
+  </ng-container>
+  <ng-container *ngIf="isSidebarOpen">
+    <!-- Close icon -->
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <line x1="5" y1="5" x2="19" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      <line x1="19" y1="5" x2="5" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+    </svg>
+  </ng-container>
+</button>
+<!-- sidebar.component.html -->
+<div class="sidebar" [class.open]="isSidebarOpen">
+    <div class="course-header">
+      <a routerLink="/home" class="back-btn">
+        <i class="fas fa-arrow-left"></i>
+        Back to Course
+      </a>
+      <h3 class="course-title">{{ subject?.subjectName }}</h3>
+      <button class="close-btn" (click)="toggleSidebar()">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+
+    <div class="accordion" id="courseAccordion">
+      <div class="accordion-item" *ngFor="let section of sections; let i = index">
+        <h2 class="accordion-header" [id]="'heading' + i">
+          <button class="accordion-button fw-bold" style="color: #0066cc;" type="button"  data-bs-toggle="collapse"  [attr.data-bs-target]="'#collapse' + i" [attr.aria-expanded]="i === 0 ? 'true' : 'false'" [attr.aria-controls]="'collapse' + i">
+            {{section.unitName}}
+          </button>
+        </h2>
+        <div [id]="'collapse' + i" class="accordion-collapse collapse"
+             [class.show]="i === 0"
+             [attr.aria-labelledby]="'heading' + i"
+             data-bs-parent="#courseAccordion">
+          <div class="accordion-body p-0">
+            <ul class="lesson-list">
+              <li class="list-group-item" *ngFor="let lesson of section.lessons" (click)="selectLesson(lesson.id)"[class.active]="lesson.id === currentLesson">
+                <span class="lesson-number">{{lesson.number}}</span>
+                <i class="bi fa-camera"></i>
+                {{lesson.title}}
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="chat-live">
+  <!-- <nav  style="background-color:aliceblue ; "> -->
+  <div class="">
+
+
+    <!-- Collapsible Nav Links -->
+    <div style="background-color:aliceblue ; padding: 15px; width: 100%;">
+      <ul class="navbar-nav ms-auto align-items-center" style="gap:40px ;display: flex; flex-direction: row; justify-content: center;">
+        <li class="nav-item " >
+          <a routerLink="/chat" class="nav-link fw-bold text-white p-2" style="cursor: pointer; background-color: #0066CC;  border-radius: 5px;">Chat with us</a>
+        </li>
+        <!-- <li class="nav-item" *ngIf="!isInstructorLogged && isAdminLogged && !isStudentLogged"> -->
+        <li class="nav-item " >
+          <a routerLink="/meeting" class="nav-link fw-bold text-white p-2" style="cursor: pointer; background-color: #0066CC; border-radius: 5px;">Live Lecture</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+<!-- </nav> -->
+</div>

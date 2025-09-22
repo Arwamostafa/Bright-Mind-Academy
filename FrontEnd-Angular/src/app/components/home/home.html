@@ -1,0 +1,174 @@
+<div style="position: relative;">
+<!-- Start Header -->
+<div class=" jumbotron jumbotron-fluid position-relative overlay-bottom" style="margin-bottom: 10px;">
+  <div class="container text-center my-5" style="padding: 100px;">
+      <h1 class="text-white mt-4 mb-4" >Welcome to E-Learning — Learn Better, Shine Brighter!</h1>
+      <p class="text-white display-1 mb-5" style="font-size: 24px; " >E-Learning is your smart companion through high school. We offer interactive lessons, video tutorials, and practice assignments designed especially for secondary students. Whether you're preparing for exams or strengthening your understanding in subjects like Math, Science, English, and more — E-Learning helps you learn at your own pace and succeed with confidence.</p>
+  </div>
+</div>
+<!-- End Header -->
+
+<!-- Start Subjects -->
+<div class="justify-content-center pt-5 container ">
+        <div class="section-title text-center position-relative mb-4 row">
+            <h1 class="display-5 mb-5" style="color: #0066cc; font-weight: bold ;">Explore Subjects</h1>
+            <div class="d-flex ">
+              <select class="form-select mx-3 p-3" style="font-size: 20px;" [(ngModel)]="selectedClassId" (change)="loadData()">
+                <option [ngValue]="null"  disabled>Select the academic year</option>
+                <!-- <option *ngFor="let c of classes" [value]="c.classID">{{ c.className }}</option> -->
+                @for(c of classes; track c.classID ){
+                <option  [value]="c.classID">{{ c.className }}</option>
+                }
+              </select>
+
+              <select class="form-select mx-3 p-3" style="font-size: 20px;" [(ngModel)]="selectedTrackId" (change)="loadData()">
+                <option [ngValue]="null"  disabled>Select the academic track</option>
+                <!-- <option *ngFor="let t of tracks" [value]="t.trackID">{{ t.trackName }}</option> -->
+                @for(t of tracks; track t.trackID){
+                  <option  [value]="t.trackID">{{ t.trackName }}</option>
+                }
+              </select>
+
+              <!-- <div *ngIf="cardData">
+                <div class="card">
+                  <h3>{{ cardData.instructorName }}</h3>
+                  <p>Subject: {{ cardData.subjectName }}</p>
+                  <p>Price: {{ cardData.price | currency }}</p>
+                  <p>Class: {{ cardData.className }}</p>
+                  <p>Track: {{ cardData.trackName }}</p>
+              </div> -->
+              <!-- <select class="form-select mx-3 p-3" style="font-size: 20px;" [(ngModel)]="SelectedAcademicYear">
+                <option [ngValue]="0" disabled>Select the academic year</option>
+                <option [ngValue]="1">First Year (Secondary)</option>
+                <option [ngValue]="2">Second Year (Secondary)</option>
+                <option [ngValue]="3">Third Year (Secondary)</option>
+              </select>
+
+              <select class="form-select mx-3 p-3" style="font-size: 20px;">
+
+                @switch (SelectedAcademicYear) {
+                  @case (1) {
+                    <option [ngValue]="0" disabled selected>Select the academic track</option>
+                    <option [ngValue]="1">General</option>
+                  }
+                  @case (2) {
+                    <option [ngValue]="0" disabled selected>Select the academic track</option>
+                    <option [ngValue]="1">Science</option>
+                    <option [ngValue]="2">Literature</option>
+                  }
+                  @case (3) {
+                    <option [ngValue]="0" disabled selected>Select the academic track</option>
+                    <option [ngValue]="1">Science-Mathematics</option>
+                    <option [ngValue]="2">Science-Biology</option>
+                    <option [ngValue]="3">Literature</option>
+                  }
+                } -->
+
+                <!-- <option [ngValue]="0" disabled>Select the academic track</option>
+
+                First Year
+                <option *ngIf="SelectedAcademicYear == 1" [ngValue]="1">General</option>
+
+                Second Year
+                <ng-container *ngIf="SelectedAcademicYear == 2">
+                  <option [ngValue]="1">Science</option>
+                  <option [ngValue]="2">Literature</option>
+                </ng-container>
+
+                Third Year
+                <ng-container *ngIf="SelectedAcademicYear == 3">
+                  <option [ngValue]="1">Science-Mathematics</option>
+                  <option [ngValue]="2">Science-Biology</option>
+                  <option [ngValue]="3">Literature</option>
+                </ng-container> -->
+              <!-- </select> -->
+
+            </div>
+        </div>
+        <div class="row row-gap-5 my-5">
+          <!-- @for(subject of subjects; track subject.subjectID){
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 justify-content-center d-flex" [routerLink]="['/details',subject.subjectID]">
+              <div class="card hover-move" style="width: 17rem;">
+                <div class="image-wrapper" style="cursor: pointer;" >
+                  <!-- <img [src]="subject.imgUrl" class="card-img-top" alt="physics"/> -->
+                <!-- </div>
+                <div class="card-body">
+                  <h5 class="card-title">{{subject.instructorName}}</h5>
+                  <h5 class="card-text">{{subject.subjectName}}</h5>
+                  <h5 class="card-text">{{subject.price| currency: " EGP "}}</h5> -->
+                  <!-- <button class="btn btn-light" style="color: white; background-color: #0066cc;">Join Now</button> -->
+                <!-- </div>
+              </div>
+            </div>
+          } -->
+          @for(subject of subjects; track subject.subjectId){
+            <div class="col-12 col-sm-6 col-lg-4 col-xl-3 justify-content-center d-flex" [routerLink]="['/details',subject.subjectId]">
+              <div class="card hover-move" style="width: 17rem;">
+                <div class="image-wrapper" style="cursor: pointer;" >
+                  <img [src]="subject.imgUrl" class="card-img-top" [alt]="subject.subjectName"/>
+                </div>
+                <div class="card-body">
+                  <h5 class="card-text">{{subject.subjectName}}</h5>
+                  <h5 class="card-title">{{subject.instructorName}}</h5>
+                  <h5 class="card-text">{{subject.subjectPrice | currency: " EGP "}}</h5>
+                  <!-- <button class="btn btn-light" style="color: white; background-color: #0066cc;">Join Now</button> -->
+                </div>
+              </div>
+            </div>
+          }
+
+        </div>
+
+</div>
+<!-- End Subjects -->
+
+<!-- Start About us -->
+<div class="justify-content-center pt-5 container">
+  <div style="background-color: white; border-radius: 20px; padding: 10px; box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2); ">
+    <div class="section-title text-center position-relative mb-4 row">
+      <h1 class="display-5 my-5" style="color: #0066cc; font-weight: bold ;">About Us</h1>
+      <div style="padding: 0px 120px ;">
+              <p class="mb-5" style="color: black ; font-size: 20px;">Welcome to our E-Learning platform — your trusted companion in secondary education. We are dedicated to supporting students through their academic journey across all three years of high school, offering tailored resources for every track: Science–Mathematics, Science–Biology, and Literature. Our platform connects students with experienced teachers in all core subjects, providing interactive lessons, engaging assignments, and instant access to quality educational content anytime, anywhere. We believe that learning should be accessible, personalized, and inspiring — and we’re here to make that a reality.</p>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End About us -->
+
+<!-- Start Contact us -->
+<div class="justify-content-center pt-5 container mb-5">
+  <div style="background-color: white; border-radius: 20px; padding: 10px; box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.2); ">
+    <div class="section-title text-center position-relative mb-4 row " style="padding: 0px 120px;">
+      <h1 class="display-5 my-5" style="color: #0066cc; font-weight: bold ;">Contact Us</h1>
+      <p class="mb-5" style="color: black; font-size: 20px;">Have a question or need help? We're here to support students, parents, and educators every step of the way.</p>
+      <div class="d-flex justify-content-between flex-wrap " style="font-size: 20px;">
+        <div class="m-2">
+          <i class="fa-solid fa-envelope" style="color: #0066cc;"></i>
+          <span> elearning@gmail.com</span>
+        </div>
+        <div class="m-2">
+          <i style="color: #0066cc;" class="fa-brands fa-whatsapp"></i>
+          <span> 01113631553</span>
+        </div>
+        <div class="m-2">
+          <i class="fa-brands fa-facebook" style="color: #0066cc;"></i>
+          <span> E-Learning platform</span>
+        </div>
+        <div class="m-2">
+          <i class="fa-brands fa-instagram" style="color: #0066cc;"></i>
+          <span> E-Learning_platform</span>
+        </div>
+      </div>
+
+  </div>
+</div>
+<!-- End Contact us -->
+ <button class="floating-btn" (click)="togglePanel()">
+  {{ isPanelOpen ? 'Close Panel' : 'Open Panel' }}
+</button>
+
+<div *ngIf="isPanelOpen" class="panel">
+
+  <app-chatbotspesefic></app-chatbotspesefic>
+</div>
+</div>

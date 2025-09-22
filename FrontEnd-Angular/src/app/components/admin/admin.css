@@ -1,0 +1,46 @@
+.admin{
+  background-color: #e9ecef;
+  min-height: 100vh;
+  display: flex;
+}
+
+aside{
+  background-color: white;
+  width: 200px;
+  color: #0066cc;
+
+}
+
+aside ul {
+  list-style: none;
+  text-align: center;
+  padding: 20px;
+  font-weight: 600;
+
+
+}
+aside li {
+  padding: 10px;
+  cursor: pointer;
+  transition: 0.3s ease;
+  border-radius: 5px;
+  margin-bottom: 5px;
+  text-align: left;
+
+}
+aside li:hover {
+  background-color: #0066cc;
+  color: white;
+  border-radius: 5px;
+}
+.main-content{
+  width: 50%;
+  flex: 1;
+}
+
+.con{
+  /* background: white; */
+  margin: 15px;
+  padding: 10px;
+  border-radius: 15px;
+}
