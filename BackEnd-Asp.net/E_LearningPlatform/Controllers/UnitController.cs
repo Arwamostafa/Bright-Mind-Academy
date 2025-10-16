@@ -114,6 +114,13 @@ namespace E_LearningPlatform.Controllers
             return Ok(units);
         }
 
+        [HttpGet("CountBySubjectId/{subjectId}")]
+        public async Task<IActionResult> GetNumberOfUnitsBySubjectId(int subjectId)
+        {
+            var count = await _unitService.GetNumberOfUnitsBySubjectId(subjectId);
+            return Ok(new { SubjectId = subjectId, UnitCount = count });
+        }
+
 
     }
 }

@@ -91,6 +91,11 @@ namespace Repository.Repositories.Implementations
                 .ToListAsync();
         }
 
+        public async Task<int> GetUnitsCountBySubjectId(int subjectId)
+        {
+            return await _appDbContext.Units
+                .CountAsync(u => u.SubjectId == subjectId);
+        }
 
         //public async Task<Unit> GetUnitWithLessonsAsync(int unitId)
         //{

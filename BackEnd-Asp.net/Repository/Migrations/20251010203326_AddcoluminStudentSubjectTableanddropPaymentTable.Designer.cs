@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
@@ -11,9 +12,11 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251010203326_AddcoluminStudentSubjectTableanddropPaymentTable")]
+    partial class AddcoluminStudentSubjectTableanddropPaymentTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -671,13 +674,13 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Models.SubjectStudent", b =>
                 {
-                    b.HasOne("Domain.Models.StudentProfile", "Student")
+                    b.HasOne("Domain.Models.Subject", "Subject")
                         .WithMany("subjectStudents")
-                        .HasForeignKey("StudentId")
+                        .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Domain.Models.Subject", "Subject")
+                    b.HasOne("Domain.Models.StudentProfile", "Student")
                         .WithMany("subjectStudents")
                         .HasForeignKey("SubjectId")
                         .OnDelete(DeleteBehavior.Cascade)

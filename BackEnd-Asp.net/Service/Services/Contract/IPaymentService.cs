@@ -11,7 +11,19 @@ namespace Service.Services.Contract
 {
     public interface IPaymentService
     {
-        Task<PaymentDTO> CreateOrUpdatePaymentAsync(int subjectId, int studentId);
+        Task<PaymentResponseDto> CreatePaymentAsync(CreatePaymentDto dto);
+        Task<string> HandlePaymentCallbackAsync(dynamic callbackData);
+        public string computeHmacSha256(string message, string secret);
+        Task<SubjectStudent> UpdatepaymentSuccess(string specialRefrence, decimal AmountPaid);
+        Task<SubjectStudent> UpdatepaymentFaild(string specialRefrence, decimal AmountPaid);
+        Task<PaymentDTO> GetPaymentDetailsAsync(string transactionId);
+
+        Task<List<PaymentDTO>> GetAllPayments();
+
+        Task<PaymentDTO> GetPaymentsByStudentIdAndSubjectId(int studentId, int SubjectId);
+
+        Task<int> NumberOfStudentInSubject(int subjectId);
+
 
 
 

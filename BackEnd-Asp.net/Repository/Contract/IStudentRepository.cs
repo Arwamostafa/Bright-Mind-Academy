@@ -9,13 +9,12 @@
 //{
 //    public interface IStudentRepository
 //    {
-//        Task<List<Student>> GetAllAsync();
-//        Task<Student> GetByIdAsync(int id);
-//        Task AddAsync(Student student);
-//        Task UpdateAsync(Student student);
+//        Task<List<StudentProfile>> GetAllAsync();
+//        Task<StudentProfile> GetByIdAsync(int id);
+//        Task AddAsync(StudentProfile student);
+//        Task UpdateAsync(StudentProfile student);
 //        Task DeleteAsync(int id);
-//        Task EnrollStudentInSubjectAsync(int studentId, int subjectId);
-//        Task<Payment>GetPaymentBySubjectAndStudent(int subjectId, int studentId);
+        
 
 
 //    }

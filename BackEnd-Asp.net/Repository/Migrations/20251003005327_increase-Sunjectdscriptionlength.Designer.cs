@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Repository;
 
@@ -11,9 +12,11 @@ using Repository;
 namespace Repository.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251003005327_increase-Sunjectdscriptionlength")]
+    partial class increaseSunjectdscriptionlength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -250,6 +253,44 @@ namespace Repository.Migrations
                     b.ToTable("Lessons");
                 });
 
+            modelBuilder.Entity("Domain.Models.Payment", b =>
+                {
+                    b.Property<int>("PaymentID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PaymentID"));
+
+                    b.Property<string>("ClientSecret")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool?>("IsSuccessful")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("PaymentIntentId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StudentID")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SubjectID")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalPayMent")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("PaymentID");
+
+                    b.HasIndex("SubjectID");
+
+                    b.HasIndex("StudentID", "SubjectID")
+                        .IsUnique();
+
+                    b.ToTable("Payments");
+                });
+
             modelBuilder.Entity("Domain.Models.StudentClassSubject", b =>
                 {
                     b.Property<int>("SubjectID")
@@ -324,30 +365,18 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Models.SubjectStudent", b =>
                 {
-                    b.Property<int>("StudentId")
-                        .HasColumnType("int");
-
                     b.Property<int>("SubjectId")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("StudentId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("EnrolledAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool>("IsPaid")
-                        .HasColumnType("bit");
+                    b.HasKey("SubjectId", "StudentId");
 
-                    b.Property<DateTime?>("PaymentDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("TransactionId")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("StudentId", "SubjectId");
-
-                    b.HasIndex("SubjectId");
+                    b.HasIndex("StudentId");
 
                     b.ToTable("SubjectStudents");
                 });
@@ -612,6 +641,25 @@ namespace Repository.Migrations
                     b.Navigation("Unit");
                 });
 
+            modelBuilder.Entity("Domain.Models.Payment", b =>
+                {
+                    b.HasOne("Domain.Models.StudentProfile", "Student")
+                        .WithMany("Payments")
+                        .HasForeignKey("StudentID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Domain.Models.Subject", "Subject")
+                        .WithMany("Payments")
+                        .HasForeignKey("SubjectID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Student");
+
+                    b.Navigation("Subject");
+                });
+
             modelBuilder.Entity("Domain.Models.StudentClassSubject", b =>
                 {
                     b.HasOne("Domain.Models.Class", "Class")
@@ -811,11 +859,15 @@ namespace Repository.Migrations
 
             modelBuilder.Entity("Domain.Models.StudentProfile", b =>
                 {
+                    b.Navigation("Payments");
+
                     b.Navigation("subjectStudents");
                 });
 
             modelBuilder.Entity("Domain.Models.Subject", b =>
                 {
+                    b.Navigation("Payments");
+
                     b.Navigation("StudentClassSubject")
                         .IsRequired();
 

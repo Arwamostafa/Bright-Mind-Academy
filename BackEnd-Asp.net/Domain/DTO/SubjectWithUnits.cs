@@ -22,7 +22,7 @@ namespace Domain.DTO
 
         public string? InstructorName { get; set; }
 
-        public List<UnitDto>? Units { get; set; } = new List<UnitDto>();
+        public List<UnitWithLessonsDto>? Units { get; set; } = new List<UnitWithLessonsDto>();
 
 
     }

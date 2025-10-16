@@ -20,7 +20,7 @@ namespace Domain.Models
         public string SubjectName { get; set; }
 
         [Required]
-        [StringLength(50, MinimumLength = 5, ErrorMessage = "Name length must be between 3 and 20")]
+        [StringLength(300, MinimumLength = 5, ErrorMessage = "more than max length that is allowed")]
         public string SubjectDescription { get; set; }
         [Required]
         [Range(0, 10000.000, ErrorMessage = "Price must be between 0 and 1000")]
@@ -35,9 +35,8 @@ namespace Domain.Models
         public virtual InstructorProfile Instructor { get; set; }
         public List<Unit>? Units { get; set; } = new List<Unit>();
 
-        public List<SubjectStudent> subjectStudents { get; set; }
+        public virtual ICollection<SubjectStudent> subjectStudents { get; set; }
         public virtual StudentClassSubject StudentClassSubject { get; set; } 
-        public ICollection<Payment> Payments { get; set; } =new HashSet<Payment>();
 
     }
 }

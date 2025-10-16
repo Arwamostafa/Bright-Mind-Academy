@@ -98,17 +98,23 @@ namespace Repository
                 .Property(e => e.Id)
                 .ValueGeneratedOnAdd();
             modelBuilder.Entity<SubjectStudent>()
-                .HasKey(ss => new { ss.SubjectId, ss.StudentId });
+                 .HasOne(ss => ss.Student)
+                 .WithMany(s => s.subjectStudents)
+                 .HasForeignKey(ss => ss.StudentId);
 
             modelBuilder.Entity<SubjectStudent>()
-                .HasOne(ss => ss.Student)
-                .WithMany(s => s.subjectStudents)
-                .HasForeignKey(ss => ss.StudentId);
+          .HasKey(ss => new { ss.StudentId, ss.SubjectId });
 
             modelBuilder.Entity<SubjectStudent>()
                 .HasOne(ss => ss.Subject)
                 .WithMany(s => s.subjectStudents)
                 .HasForeignKey(ss => ss.SubjectId);
+
+
+            modelBuilder.Entity<SubjectStudent>()
+                .HasOne(ss => ss.Student)
+                .WithMany(s => s.subjectStudents)
+                .HasForeignKey(ss => ss.StudentId);
 
             modelBuilder.Entity<Lesson>()
                 .HasOne(l => l.Quiz)
@@ -116,19 +122,7 @@ namespace Repository
                 .HasForeignKey<quiz>(q => q.LessonId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            modelBuilder.Entity<Payment>()
-                .HasOne(p => p.Subject)
-                .WithMany(s => s.Payments)
-                .HasForeignKey(p => p.SubjectID);
-
-            modelBuilder.Entity<Payment>()
-                .HasOne(p => p.Student)
-                .WithMany(u => u.Payments)
-                .HasForeignKey(p => p.StudentID);
-
-            modelBuilder.Entity<Payment>()
-                .HasIndex(p => new { p.StudentID, p.SubjectID })
-                .IsUnique();
+       
             base.OnModelCreating(modelBuilder);
         }
 
@@ -143,7 +137,7 @@ namespace Repository
         public virtual DbSet<Subject> Subjects { get; set; }
         //public virtual DbSet<Student> Students { get; set; }
         public virtual DbSet<StudentClassSubject> StudentClassSubjects { get; set; }
-        public DbSet<Payment> Payments { get; set; }
+        //public DbSet<Payment> Payments { get; set; }
 
         public virtual DbSet<quiz> Quizzes { get; set; }
         public virtual DbSet<question> Questions { get; set; }

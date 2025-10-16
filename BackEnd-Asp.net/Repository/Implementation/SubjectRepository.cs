@@ -29,11 +29,7 @@ namespace Repository.Implementation
             };
 
             context.Subjects.Add(addedSubject);
-
-            int affectedRows = context.SaveChanges();
-            Console.WriteLine("Rows affected: " + affectedRows);
-
-
+            context.SaveChanges(); 
 
             StudentClassSubject studentClassSubject = new StudentClassSubject()
             {
@@ -41,15 +37,10 @@ namespace Repository.Implementation
                 InstructorID = addedSubjectDTO.InstructorID,
                 ClassID = addedSubjectDTO.ClassID,
                 TrackID = addedSubjectDTO.TrackID,
-
-
             };
 
             context.StudentClassSubjects.Add(studentClassSubject);
-            int affectedRows2 = context.SaveChanges();
-            Console.WriteLine("Rows affected: " + affectedRows);
-
-            //context.Subjects.Add(addedSubject);
+            context.SaveChanges(); 
         }
 
         public List<SubjectWithUnits> GetAll()
@@ -63,6 +54,8 @@ namespace Repository.Implementation
                             .ThenInclude(scs => scs.Class)
                         .Include(s => s.StudentClassSubject)
                             .ThenInclude(scs => scs.Track)
+                        .Include(s=> s.Units)
+                             .ThenInclude(u=>u.Lessons)
                         .ToList();
 
             foreach (var subject in classSubjects)
@@ -83,7 +76,18 @@ namespace Repository.Implementation
                     TrackName = scs?.Track?.TrackName ?? string.Empty,
                     Price = subject.Price,
                     ClassID = scs.ClassID,
-                    TrackID = scs.TrackID
+                    TrackID = scs.TrackID,
+                    Units = subject.Units.Select(u => new UnitWithLessonsDto
+                    {
+                        Id = u.Id,
+                        Title = u.Title,
+                        Lessons = u.Lessons.Select(l => new LessonDto
+                        {
+                            Id = l.Id,
+                            Title = l.Title
+
+                        }).ToList()
+                    }).ToList()
                 };
 
                 subjectDTOs.Add(subjectDTO);
@@ -158,24 +162,24 @@ namespace Repository.Implementation
         {
             context.SaveChanges();
         }
-        public void AddPayment(Payment payment)
-        {
-            context.Payments.Add(payment);
-            context.SaveChanges();
-        }
+        //public void AddPayment(Payment payment)
+        //{
+        //    context.Payments.Add(payment);
+        //    context.SaveChanges();
+        //}
 
-        public void UpdatePayment(Payment payment)
-        {
-            context.Payments.Update(payment);
-            context.SaveChanges();
-        }
+        //public void UpdatePayment(Payment payment)
+        //{
+        //    context.Payments.Update(payment);
+        //    context.SaveChanges();
+        //}
 
-        public Subject GetByIdWithInstructorAndPayment(int id)
-        {
-            return context.Subjects
-            .Include(s => s.Instructor).Include(s => s.Payments)
-             .FirstOrDefault(s => s.SubjectID == id);
-        }
+        //public Subject GetByIdWithInstructorAndPayment(int id)
+        //{
+        //    return context.Subjects
+        //    .Include(s => s.Instructor).Include(s => s.Payments)
+        //     .FirstOrDefault(s => s.SubjectID == id);
+        //}
 
 
     }

@@ -70,10 +70,12 @@ namespace E_LearningPlatform
             builder.Services.AddScoped<ISubjectRepository, SubjectRepository>();
             builder.Services.AddScoped<ISubjectService, SubjectService>();
             builder.Services.AddScoped<IUnitRepository, UnitRepository>();
+            builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
             builder.Services.AddScoped<IUnitService, UnitService>();
             builder.Services.AddScoped<ILessonRepository, LessonRepository>();
             builder.Services.AddScoped<ILessonService, LessonService>();
-         
+            builder.Services.AddScoped<IPaymentService,PaymentService>();
+
             builder.Services.AddScoped<IQuizService, QuizService>();
 
 
