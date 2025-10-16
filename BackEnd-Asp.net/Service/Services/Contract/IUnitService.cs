@@ -23,6 +23,8 @@ namespace Service.Services.Contract
 
         Task<List<Unit>> GetUnitsBySubjectName(string subjectname);
 
+        Task <int> GetNumberOfUnitsBySubjectId(int subjectId);
+
         //public Task<UnitDto?> GetByIdWithSubjectAsync(int id);
     }
 }

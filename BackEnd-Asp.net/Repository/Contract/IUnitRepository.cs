@@ -24,5 +24,6 @@ namespace Repository.Contract
         public Task<Unit?> GetUnitByLessonId(int lessonId);
         public Task<List<Unit>> GetUnitsBySubjectId(int Subjectid);
         public Task<List<Unit>> GetUnitsBySubjectName(string subjectname);
+        Task<int> GetUnitsCountBySubjectId(int subjectId);
     }
 }

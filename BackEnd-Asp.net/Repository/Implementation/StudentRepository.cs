@@ -18,54 +18,37 @@
 //        {
 //            _appDbContext = appDbContext;
 //        }
-//        public async Task<List<Student>> GetAllAsync()
+//        public async Task<List<StudentProfile>> GetAllAsync()
 //        {
-//            return await _appDbContext.Students.ToListAsync();
+//            return await _appDbContext.StudentProfiles.Include(s=>s.User).ToListAsync();
 //        }
 
-//        public async Task<Student> GetByIdAsync(int id)
+//        public async Task<StudentProfile> GetByIdAsync(int id)
 //        {
-//            return await _appDbContext.Students.FindAsync(id);
+//            return await _appDbContext.StudentProfiles.Include(s=>s.User).FirstOrDefaultAsync(s=>s.UserId==id);
 //        }
 
-//        public async Task AddAsync(Student student)
+//        public async Task AddAsync(StudentProfile student)
 //        {
-//            await _appDbContext.AddAsync(student);
+//            await _appDbContext.StudentProfiles.AddAsync(student);
 //            await _appDbContext.SaveChangesAsync();
 //        }
 
-//        public async Task UpdateAsync(Student student)
+//        public async Task UpdateAsync(StudentProfile student)
 //        {
-//            _appDbContext.Students.Update(student);
+//            _appDbContext.StudentProfiles.Update(student);
 //            await _appDbContext.SaveChangesAsync();
 //        }
 
 //        public async Task DeleteAsync(int id)
 //        {
-//            var student = await _appDbContext.Students.FindAsync(id);
+//            var student = await _appDbContext.StudentProfiles.FindAsync(id);
 //            if (student != null)
 //            {
-//                _appDbContext.Students.Remove(student);
+//                _appDbContext.StudentProfiles.Remove(student);
 //                await _appDbContext.SaveChangesAsync();
 //            }
 //        }
-//        public async Task EnrollStudentInSubjectAsync(int studentId, int subjectId)
-//        {
-//            var enrollment = new SubjectStudent
-//            {
-//                StudentId = studentId,
-//                SubjectId = subjectId
-//            };
-
-//            _appDbContext.SubjectStudents.Add(enrollment);
-//            await _appDbContext.SaveChangesAsync();
-//        }
-
-//        public async Task<Payment> GetPaymentBySubjectAndStudent(int subjectId, int studentId)
-//        {
-//          return   await _appDbContext.Payments.Include(p => p.Subject).Include(p => p.Student).FirstOrDefaultAsync(p => p.SubjectID == subjectId && p.StudentID == studentId);
-             
-//        }
 //    }
 
-//    }
+//}

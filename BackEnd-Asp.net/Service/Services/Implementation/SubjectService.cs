@@ -45,7 +45,7 @@ namespace Service.Services.Implementation
             }
             catch (Exception ex)
             {
-                return null;
+                throw;
             }
         }
 
@@ -78,5 +78,11 @@ namespace Service.Services.Implementation
                 return $"Failed to be updated: {ex.Message}";
             }
         }
+
+
+
     }
+
+
+
 }

@@ -115,6 +115,7 @@ namespace E_LearningPlatform.Controllers
                     FullName = user.FirstName + " " + user.LastName,
                     PhoneNumber = user.PhoneNumber,
                     Email = user.Email,
+                    
                 };
 
 

@@ -15,10 +15,13 @@ namespace E_LearningPlatform.Controllers
     {
         private readonly ISubjectService newSubject;
         private readonly AppDbContext context;
-        public SubjectController(ISubjectService _subject, AppDbContext _context)
+        private readonly IUnitService unitService;
+
+        public SubjectController(ISubjectService _subject, AppDbContext _context , IUnitService unitService)
         {
             newSubject = _subject;
             context = _context;
+            this.unitService = unitService;
         }
 
         [HttpGet]
@@ -50,6 +53,7 @@ namespace E_LearningPlatform.Controllers
                     SubjectPrice = cts.Subject.Price,
                     SubjectDescription = cts.Subject.SubjectDescription,
                     imgUrl = cts.Subject.Instructor.Image,
+
                 }).ToList();
 
                 return Ok(results);
@@ -76,6 +80,7 @@ namespace E_LearningPlatform.Controllers
                 SubjectPrice = cts.Subject.Price,
                 SubjectDescription = cts.Subject.SubjectDescription,
                 imgUrl = cts.Subject.Instructor.Image,
+
             }).SingleOrDefault();
 
             return Ok(result);
@@ -86,6 +91,7 @@ namespace E_LearningPlatform.Controllers
         //[AllowAnonymous]
         public IActionResult GetHomeSubjects()
         {
+            
             var results = context.StudentClassSubjects
                .Select(cts => new
                {
@@ -95,6 +101,12 @@ namespace E_LearningPlatform.Controllers
                    SubjectPrice = cts.Subject.Price,
                    SubjectDescription = cts.Subject.SubjectDescription,
                    imgUrl = cts.Subject.Instructor.Image,
+                   ClassId= cts.ClassID,
+                   ClassName = cts.Class.ClassName,
+                   TrackId= cts.TrackID,
+                   TrackName = cts.Track.TrackName,
+                   unitCount= context.Units.Count(u => u.SubjectId == cts.SubjectID)
+
                }).ToList();
 
             return Ok(results);
@@ -126,12 +138,18 @@ namespace E_LearningPlatform.Controllers
         //[Authorize(Roles = ("Instructor, Admin"))]
         public IActionResult PostSubject([FromBody] CreatedSubjectDTO subjectDTO)
         {
-            if (subjectDTO != null)
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            try
             {
                 var response = newSubject.AddSubject(subjectDTO);
                 return Ok(response);
             }
-            return NotFound();
+            catch (Exception ex)
+            {
+                return BadRequest( new { message = ex.Message, inner = ex.InnerException?.Message });
+            }
         }
 
         [HttpPut("{id:int}")]

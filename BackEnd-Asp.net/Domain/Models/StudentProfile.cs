@@ -11,7 +11,7 @@ namespace Domain.Models
         [ForeignKey("User")]
         public int UserId { get; set; }
         public virtual ApplicationUser User { get; set; }
-        public ICollection<Payment> Payments { get; set; } = new HashSet<Payment>();
-        public ICollection<SubjectStudent>? subjectStudents { get; set; } = new HashSet<SubjectStudent>();
+        //public ICollection<Payment> Payments { get; set; } = new HashSet<Payment>();
+        public virtual ICollection<SubjectStudent>? subjectStudents { get; set; } = new HashSet<SubjectStudent>();
     }
 }
